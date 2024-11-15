@@ -15,6 +15,12 @@ function addMultipleChildren(parent, children) {
     return parent
 }
 
+function removeallChidren(){
+    
+    while (gittablebody.firstChild) {
+        gittablebody.removeChild(gittablebody.firstChild);
+    }
+}
 
 function appendRows(rownumber, username, url, apiurl){
 
@@ -80,6 +86,7 @@ export function calculateFutureValue() {
 
 //////////// Github Functions ///////////////////////
 export function gitHubFinder() {
+    removeallChidren();
     gittable.classList = "table";
     let ser_val = gtser.value;
     let url = `https://api.github.com/search/users?q=${ser_val}+in:login`;
