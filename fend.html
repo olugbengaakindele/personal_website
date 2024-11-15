@@ -9,7 +9,7 @@
 </head>
   <body>
     <special-header></special-header> 
-    <section class ="bg-info">
+    <section >
       <div class="container ">
         <div class="row">            
           <div class="col-sm-12 col-9 mx-auto pt-5">
@@ -99,6 +99,20 @@
                         <hr>
                       </div>
                       <div class="row" id="github-result-row">
+                        <!-- The table the presents the result -->
+                        <table class="table d-none"  id ="github-result-table">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Username</th>
+                              <th scope="col">Page</th>
+                              <th scope="col">Stats</th>
+                            </tr>
+                          </thead>
+                          <tbody id ="github-result-table-body">
+                            
+                          </tbody>
+                        </table>
                       </div>
                     </div>    
                   </div>
@@ -118,10 +132,11 @@
     </footer>
 
  
-
+    <script src ="js/windload.js"></script>
     <script src="js/templ.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/fend.js" type ="module"></script>
+    
 
 </body>
 </html>

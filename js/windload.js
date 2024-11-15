@@ -6,11 +6,15 @@ const bstgt = document.querySelector("#bstgt");
 const res = document.querySelector("#result");
 const res_tb = document.querySelector('#table_body');
 const secbd = document.querySelector('#sec_body');
-
+const gittable = document.querySelector("#github-result-table")
 
 
 //////////////////Hide the table once page laods //////////////////////////
-window.onload = function() {    
-    secbd.classList.add("");
+window.onload = function() {  
+    if (secbd) {
+        secbd.classList.add("");
+    }
+    
+   
 }
 bstgt.addEventListener("click" , savings)
