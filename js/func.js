@@ -184,8 +184,55 @@ export function calculateFutureValue() {
 
 
 //////////// Github Functions ///////////////////////
-
 export function gitHubFinder() {
+    let ser_val = gtser.value;
+    let url = `https://api.github.com/search/users?q=${ser_val}+in:login`;
+
+    fetch(url)
+        .then(response => {
+            if (response.status === 200){
+                return response.json();
+            }else{
+                throw new Error("Rate limit exceeded");
+            }
+        })
+        .then(data => {
+            if (!data.message){
+                let users = data.items;
+                users.forEach(element => {
+                    // get the url for each user
+                    let user_url = element.url;
+                    fetch(user_url)
+                        .then(res => {
+                            if (res.status === 403) {
+                                console.log("Rate limit exceeded when fetching user data. Please try again later.");
+                                throw new Error("Rate limit exceeded on user data fetch");
+                            }
+                            return res.json();
+                        })
+                        .then(datauser => {
+                            profileCard(
+                                datauser.public_repos,
+                                datauser.public_gists,
+                                datauser.followers,
+                                datauser.following,
+                                datauser.created_at,
+                                datauser.updated_at,
+                                datauser.location,
+                                datauser.name,
+                                datauser.html_url
+                            );
+                        })
+
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching user data:", error));
+    }
+
+
+
+export function oldgitHubFinder() {
     let ser_val = gtser.value;
     let url = `https://api.github.com/search/users?q=${ser_val}+in:login`;
     console.log(url);
@@ -244,28 +291,28 @@ export function gitHubFinder() {
         .catch(error => console.error("Error with main request:", error));
 }
 
-export function allGitHubFinder(){
-    let ser_val = gtser.value;
-    let url = `https://api.github.com/users/femi`;
-    fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            console.error("Error with the request:", response.status);
-            throw new Error("Request failed with status " + response.status);
-        }
-        return response.json();
-}).catch(error => console.error("Error with main request:", error));
-    //     .then((data) => 
-    //         data.forEach(element => {
-    //             // check if the search value is the starting character of the login of each profile
-    //             console.log(element.login);
-    //             if (((element.login).toLowerCase()).startsWith(ser_val.toLowerCase())) {
-    //                 console.log(element.login);
-    //               } else {
-    //                 console.log("No match. The string does not start with 'olu'.");
-    //               }
-    //         })
-    // );
-}
+// export function allGitHubFinder(){
+//     let ser_val = gtser.value;
+//     let url = `https://api.github.com/users/femi`;
+//     fetch(url)
+//     .then(response => {
+//         if (!response.ok) {
+//             console.error("Error with the request:", response.status);
+//             throw new Error("Request failed with status " + response.status);
+//         }
+//         return response.json();
+// }).catch(error => console.error("Error with main request:", error));
+//     //     .then((data) => 
+//     //         data.forEach(element => {
+//     //             // check if the search value is the starting character of the login of each profile
+//     //             console.log(element.login);
+//     //             if (((element.login).toLowerCase()).startsWith(ser_val.toLowerCase())) {
+//     //                 console.log(element.login);
+//     //               } else {
+//     //                 console.log("No match. The string does not start with 'olu'.");
+//     //               }
+//     //         })
+//     // );
+// }
 
-allGitHubFinder();
+// allGitHubFinder();
